@@ -1,22 +1,20 @@
-﻿using System;
-using Tarefas.Domain.Interfaces.Repository.ReadOnly;
+﻿using Tarefas.Domain.Interfaces.Repository.ReadOnly;
 using Tarefas.Infrastructure.Data.Context;
 
 namespace Tarefas.Infrastructure.Data.Repository.ReadOnly
 {
-    public class BaseDapperRepository : IBaseDapperRepository
+    public abstract class BaseDapperRepository : IBaseDapperRepository
     {
-        protected readonly TarefasDapperContext tarefasContext;
+        protected readonly TarefasDapperContext dapperContext;
 
-        public BaseDapperRepository(TarefasDapperContext tarefasDapperContext)
+        protected BaseDapperRepository(TarefasDapperContext tarefasDapperContext)
         {
-            tarefasContext = tarefasDapperContext;
+            dapperContext = tarefasDapperContext;
         }
         
         public void Dispose()
         {
-            tarefasContext.Dispose();
-            GC.SuppressFinalize(this);
+            dapperContext.Dispose();            
         }
     }
 }

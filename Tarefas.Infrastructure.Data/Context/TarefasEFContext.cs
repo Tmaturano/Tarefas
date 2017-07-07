@@ -25,8 +25,9 @@ namespace Tarefas.Infrastructure.Data.Context
                 .Build();
 
             optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-
-            //base.OnConfiguring(optionsBuilder);
+            
+            //Colocar no csproj
+            //<PackageReference Include="Microsoft.Extensions.Configuration.FileExtension" Version="1.1.0" />
         }
 
     }

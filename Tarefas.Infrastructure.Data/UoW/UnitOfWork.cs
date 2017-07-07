@@ -1,25 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Tarefas.Infrastructure.Data.Context;
 using Tarefas.Infrastructure.Data.Interfaces;
 
 namespace Tarefas.Infrastructure.Data.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public void BeginTransaction()
+        private readonly TarefasEFContext _context;
+
+        public UnitOfWork(TarefasEFContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _context.Dispose();
         }
     }
 }

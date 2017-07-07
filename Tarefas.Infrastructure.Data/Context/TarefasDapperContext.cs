@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using Microsoft.Extensions.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Tarefas.Infrastructure.Data.Context
 {
@@ -10,8 +12,12 @@ namespace Tarefas.Infrastructure.Data.Context
 
         public TarefasDapperContext()
         {
-            _connectionString = string.Empty;
-            //_connectionString = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")    //como se fosse um app.config
+                .Build();
+            
+            _connectionString = config.GetConnectionString("DefaultConnection");            
         }
 
         public IDbConnection DapperConnection

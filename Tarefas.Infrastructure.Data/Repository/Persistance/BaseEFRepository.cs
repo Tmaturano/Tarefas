@@ -1,47 +1,37 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using Tarefas.Domain.Interfaces.Repository.Persistance;
+using Tarefas.Infrastructure.Data.Context;
 
 namespace Tarefas.Infrastructure.Data.Repository.Persistance
 {
-    public class BaseEFRepository<TEntity> : IBaseEFRepository<TEntity> where TEntity : class
-    {
-        //protected readonly IDbSet<TEntity> DbSet;
-        //protected readonly IDbContext Context;
-        //readonly DbContext recuperadorContext;
+    public abstract class BaseEFRepository<TEntity> : IBaseEFRepository<TEntity> where TEntity : class
+    {     
+        protected TarefasEFContext Db;
+        protected DbSet<TEntity> DbSet;
 
-        public BaseEFRepository()
+        protected BaseEFRepository(TarefasEFContext context)
         {
-            //Context = _contextManager.GetContext();
-            //DbSet = Context.Set<TEntity>();
+            Db = context;
+            DbSet = Db.Set<TEntity>();
         }
-        public void Adicionar(TEntity obj)
+        public virtual void Adicionar(TEntity obj)
         {
-            throw new NotImplementedException();
-            // DbSet.Add(obj);
+            DbSet.Add(obj);
         }
 
-        public void Atualizar(TEntity obj)
+        public virtual void Atualizar(TEntity obj)
         {
-            throw new NotImplementedException();
-
-            //var entry = Context.Entry(obj);
-            //DbSet.Attach(obj);
-            //entry.State = EntityState.Modified;
-
+            DbSet.Update(obj);
         }
 
-        public void Remover(TEntity obj)
-        {
-            throw new NotImplementedException();
-            //DbSet.Remove(obj);
+        public virtual void Remover(TEntity obj)
+        {            
+            DbSet.Remove(obj);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
-
-            //Context.Dispose();
-            //GC.SuppressFinalize(this);
+            Db.Dispose();
         }
     }
 }

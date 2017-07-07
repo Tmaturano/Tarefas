@@ -9,14 +9,9 @@ namespace Tarefas.Application.Services
     {            
         private readonly IUnitOfWork _unitOfWork;
 
-        public ApplicationServiceBase(IUnitOfWork unitOfWork)
+        protected ApplicationServiceBase(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-        }
-
-        public void BeginTransaction()
-        {
-            _unitOfWork.BeginTransaction();
         }
 
         public void Commit()
