@@ -9,12 +9,10 @@ namespace Tarefas.Domain.Services
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
     {
-        private readonly IBaseDapperRepository<TEntity> _baseDapperRepositoty;
         private readonly IBaseEFRepository<TEntity> _baseEFRepository;
 
-        public ServiceBase(IBaseDapperRepository<TEntity> repositoryDapper, IBaseEFRepository<TEntity> repositoryEF)
+        public ServiceBase(IBaseEFRepository<TEntity> repositoryEF)
         {
-            _baseDapperRepositoty = repositoryDapper;
             _baseEFRepository = repositoryEF;
         }
                 
@@ -33,19 +31,8 @@ namespace Tarefas.Domain.Services
             _baseEFRepository.Remover(obj);
         }
 
-        public async Task<TEntity> BuscarPorId(Guid id)
-        {
-            return await _baseDapperRepositoty.BuscarPorId(id);
-        }
-
-        public async Task<IEnumerable<TEntity>> BuscarTodos()
-        {
-            return await _baseDapperRepositoty.BuscarTodos();
-        }
-
         public void Dispose()
         {
-            _baseDapperRepositoty.Dispose();
             _baseEFRepository.Dispose();
         }
     }

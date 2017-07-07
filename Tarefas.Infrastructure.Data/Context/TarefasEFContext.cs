@@ -1,42 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Tarefas.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace Tarefas.Infrastructure.Data.Context
 {
-    public class TarefasEFContext //: DbContext
+    public class TarefasEFContext : DbContext
     {
-        public TarefasEFContext() //: base("DefaultConnection")
+        public TarefasEFContext()
         {
         }
 
-        //public DbSet<Aluno> Alunos { get; set; }
+        public DbSet<Tarefa> Tarefas { get; set; }
 
-            /*
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<Tarefa>()
+                .Property(t => t.Id)
+                .IsRequired();
 
-            modelBuilder.Properties()
-                .Where(p => p.Name == p.ReflectedType.Name + "Id" && !p.ReflectedType.Name.Contains("AlunoUsuario"))
-                .Configure(p => p.IsKey());
+            modelBuilder.Entity<Tarefa>()
+                .Property(t => t.Status)
+                .IsRequired();
 
-            modelBuilder.Properties<string>()
-                .Where(p => !p.ReflectedType.Name.Contains(("AlunoUsuario")))
-                .Configure(p => p.HasColumnType("varchar"));
+            modelBuilder.Entity<Tarefa>()
+                .Property(t => t.Titulo)
+                .HasColumnType("varchar(50)")
+                .IsRequired();
 
-            modelBuilder.Properties<string>()
-                .Where(p => !p.ReflectedType.Name.Contains(("AlunoUsuario")))
-                .Configure(p => p.HasMaxLength(100));
+            modelBuilder.Entity<Tarefa>()
+                .Property(t => t.Descricao)
+                .HasColumnType("varchar(250)")
+                .IsRequired();
 
-            modelBuilder.Configurations.Add(new AlunoConfig());
-            modelBuilder.Configurations.Add(new AlunoUsuarioConfig());
+            modelBuilder.Entity<Tarefa>()
+                .ToTable("Tarefas");
 
             base.OnModelCreating(modelBuilder);
         }
-        */
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")    //como se fosse um app.config
+                .Build();
+
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+
+            //base.OnConfiguring(optionsBuilder);
+        }
 
     }
 }

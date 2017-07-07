@@ -10,7 +10,5 @@ namespace Tarefas.Domain.Interfaces.Services
         void Adicionar(TEntity obj);
         void Remover(TEntity obj);
         void Atualizar(TEntity obj);
-        Task<IEnumerable<TEntity>> BuscarTodos();
-        Task<TEntity> BuscarPorId(Guid id);
     }
 }
