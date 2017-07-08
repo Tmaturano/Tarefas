@@ -16,5 +16,21 @@ namespace Tarefas.Domain.Entities
         {
             Id = Guid.NewGuid();            
         }
+
+        public void SetDataCriacao(DateTime data)
+        {
+            DataCriacao = data;
+            DataAlteracao = data;
+        }
+
+        public void SetDataAlteracao(DateTime data)
+        {
+            DataAlteracao = data;
+        }
+
+        public void SetDataExclusao(DateTime data)
+        {
+            DataExclusao = data;
+        }
     }
 }

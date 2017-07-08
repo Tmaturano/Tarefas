@@ -22,11 +22,17 @@ namespace Tarefas.Application.ViewModels
         [MinLength(2, ErrorMessage = "O tamanho mínimo da Descrição é {1}")]
         [MaxLength(150, ErrorMessage = "O tamanho máximo da Descrição é {1}")]
         [Display(Name = "Descrição")]
-        public string Descricao { get; set; }        
+        public string Descricao { get; set; }
+
+        [Display(Name = "Data de criação")]
+        public DateTime DataCriacao { get; set; }
+
+        [Display(Name = "Data de alteração")]
+        public DateTime DataAlteracao { get; set; }
 
         public TarefaViewModel()
         {
-            //Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
     }
 }

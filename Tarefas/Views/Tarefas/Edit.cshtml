@@ -1,18 +1,22 @@
 @model Tarefas.Application.ViewModels.TarefaViewModel
 
 @{
-    ViewData["Title"] = "Adicionar nova Tarefa";
+    ViewData["Title"] = "Editar Tarefa";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create">
+<form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>Preencha todos os dados corretamente</h4>
+        <h4>Alteração da tarefa</h4>
         <hr />
 
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="DataCriacao"/>
+        <input type="hidden" asp-for="DataAlteracao" />
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        
+                
         <div class="form-group">
             <label asp-for="Titulo" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -22,11 +26,11 @@
         </div>
         <div class="form-group">
             <label asp-for="Descricao" class="col-md-2 control-label"></label>
-            <div class="col-md-10">                
-                <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+            <div class="col-md-10">
+                <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
-        </div>
+        </div>        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
@@ -34,7 +38,7 @@
                     <label asp-for="Status"></label>
                 </div>
             </div>
-        </div>
+        </div>               
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-success" />

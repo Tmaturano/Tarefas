@@ -22,7 +22,7 @@ namespace Tarefas.UI.MVC.Controllers
         [Route("minhas-tarefas")]
         public async Task<IActionResult> Index()
         {
-            return View(await _tarefaAppService.BuscarTarefasAtivas());
+            return View(await _tarefaAppService.BuscarTodos());
         }
 
         [Route("detalhes-da-tarefa/{id:guid}")]
@@ -53,8 +53,10 @@ namespace Tarefas.UI.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(tarefaViewModel);
 
-            _tarefaAppService.Adicionar(tarefaViewModel);
-            //TODO: Colocar o retorno do adicionar em uma viewbag e mostrar para o usuário se deu sucesso ou fracasso.
+            var sucesso = _tarefaAppService.Adicionar(tarefaViewModel);
+            
+            TempData["RetornoPost"] = sucesso ? $"success,Tarefa <b>{tarefaViewModel.Titulo}</b> criada com sucesso :)" : 
+                $"error,Ocorreu um erro ao tentar criar a tarefa <b>{tarefaViewModel.Titulo}</b> :(";
 
             return RedirectToAction("Index");
         }
@@ -75,14 +77,16 @@ namespace Tarefas.UI.MVC.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("editar-tarefa")]
+        [Route("editar-tarefa/{id:guid}")]
         public IActionResult Edit(TarefaViewModel tarefaViewModel)
         {
             if (!ModelState.IsValid)
                 return View(tarefaViewModel);
 
-            _tarefaAppService.Atualizar(tarefaViewModel);
-            //TODO: Colocar o retorno do adicionar em uma viewbag e mostrar para o usuário se deu sucesso ou fracasso.
+            var sucesso = _tarefaAppService.Atualizar(tarefaViewModel);
+
+            TempData["RetornoPost"] = sucesso ? $"success,Tarefa <b>{tarefaViewModel.Titulo}</b> alterada com sucesso :)" :
+                $"error,Ocorreu um erro ao tentar alterar a tarefa {tarefaViewModel.Titulo} :(";
 
             return RedirectToAction("Index");
         }
@@ -103,7 +107,7 @@ namespace Tarefas.UI.MVC.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("apagar-tarefa")]
+        [Route("apagar-tarefa/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
             if (id == null)
@@ -113,8 +117,10 @@ namespace Tarefas.UI.MVC.Controllers
             if (tarefa == null)
                 return NotFound();
 
-            _tarefaAppService.Remover(tarefa);
-            //TODO: Colocar o retorno do adicionar em uma viewbag e mostrar para o usuário se deu sucesso ou fracasso.
+            var sucesso = _tarefaAppService.Remover(tarefa);
+
+            TempData["RetornoPost"] = sucesso ? $"success,Tarefa <b>{tarefa.Titulo}</b> excluída com sucesso :)" :
+                $"error,Ocorreu um erro ao tentar excluir a tarefa <b>{tarefa.Titulo}</b> :(";
 
             return RedirectToAction("Index");
         }

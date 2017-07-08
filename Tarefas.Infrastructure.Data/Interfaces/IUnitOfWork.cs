@@ -6,6 +6,6 @@ namespace Tarefas.Infrastructure.Data.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Commit();
+        bool Commit();
     }
 }

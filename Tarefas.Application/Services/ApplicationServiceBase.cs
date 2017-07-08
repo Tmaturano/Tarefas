@@ -14,9 +14,9 @@ namespace Tarefas.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void Commit()
+        public bool Commit()
         {
-            _unitOfWork.Commit();
+            return _unitOfWork.Commit();
         }
     }
 }

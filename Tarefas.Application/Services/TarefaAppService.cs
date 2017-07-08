@@ -21,43 +21,64 @@ namespace Tarefas.Application.Services
             _mapper = mapper;
         }
 
-        public void Adicionar(TarefaViewModel tarefa)
+        public bool Adicionar(TarefaViewModel tarefaViewModel)
         {
+            var sucesso = true;
+
             try
             {
-                _tarefaService.Adicionar(_mapper.Map<Tarefa>(tarefa));
-                Commit();
+                var tarefa = _mapper.Map<Tarefa>(tarefaViewModel);
+                tarefa.SetDataCriacao(DateTime.Now);
+                _tarefaService.Adicionar(tarefa);
+
+                sucesso = Commit();
             }
             catch (Exception ex)
             {
                 //TODO: Log                
             }
+
+            return sucesso;
         }
 
-        public void Atualizar(TarefaViewModel tarefa)
+        public bool Atualizar(TarefaViewModel tarefaViewModel)
         {
+            var sucesso = true;
+
             try
             {
-                _tarefaService.Atualizar(_mapper.Map<Tarefa>(tarefa));
-                Commit();
+                var tarefa = _mapper.Map<Tarefa>(tarefaViewModel);
+                tarefa.SetDataAlteracao(DateTime.Now);
+                _tarefaService.Atualizar(tarefa);
+
+                sucesso = Commit();
             }
             catch (Exception ex)
             {
                 //TODO: Log                
             }
+
+            return sucesso;
         }
 
-        public void Remover(TarefaViewModel tarefa)
+        public bool Remover(TarefaViewModel tarefaViewModel)
         {
+            var sucesso = true;
+
             try
             {
+                var tarefa = _mapper.Map<Tarefa>(tarefaViewModel);
+                tarefa.SetDataExclusao(DateTime.Now);
                 _tarefaService.Remover(_mapper.Map<Tarefa>(tarefa));
-                Commit();
+
+                sucesso = Commit();
             }
             catch (Exception ex)
             {
                 //TODO: Log                
             }
+
+            return sucesso;
         }
 
         public async Task<IEnumerable<TarefaViewModel>> BuscarTarefasAtivas()

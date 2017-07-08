@@ -7,9 +7,9 @@ namespace Tarefas.Application.Interfaces
 {
     public interface ITarefaAppService : IDisposable
     {
-        void Adicionar(TarefaViewModel tarefa);
-        void Remover(TarefaViewModel tarefa);
-        void Atualizar(TarefaViewModel tarefa);
+        bool Adicionar(TarefaViewModel tarefa);
+        bool Remover(TarefaViewModel tarefa);
+        bool Atualizar(TarefaViewModel tarefa);
         Task<IEnumerable<TarefaViewModel>> BuscarTarefasAtivas();
         Task<TarefaViewModel> BuscarPorId(Guid id);
         Task<IEnumerable<TarefaViewModel>> BuscarTodos();

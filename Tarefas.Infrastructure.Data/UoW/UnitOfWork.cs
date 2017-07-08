@@ -13,9 +13,9 @@ namespace Tarefas.Infrastructure.Data.UoW
             _context = context;
         }
 
-        public void Commit()
+        public bool Commit()
         {
-            _context.SaveChanges();
+            return _context.SaveChanges() > 0;
         }
 
         public void Dispose()
