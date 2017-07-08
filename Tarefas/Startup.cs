@@ -23,7 +23,7 @@ namespace Tarefas
 
             if (env.IsDevelopment())
             {
-                //builder.AddUserSecrets<Startup>();
+                builder.AddUserSecrets<Startup>();
             }
             
             builder.AddEnvironmentVariables();
