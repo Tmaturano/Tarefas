@@ -17,3 +17,15 @@
         "hideMethod": "fadeOut"
     }
 }
+
+$(document).ready(function () {
+    $('.excluir-tarefa').on('click', function () {
+        var url = "/apagar-tarefa";
+        var id = $(this).attr('data-id');
+        $.get(url + '/' + id, function (data) {
+            $('#modalDelete').html(data);
+            $("#modalExcluirTarefa").modal('show');
+        });
+    });
+});
+

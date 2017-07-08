@@ -30,6 +30,7 @@ namespace Tarefas.Application.ViewModels
         [Display(Name = "Data de alteração")]
         public DateTime DataAlteracao { get; set; }
 
+
         public TarefaViewModel()
         {
             Id = Guid.NewGuid();

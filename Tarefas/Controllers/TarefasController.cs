@@ -101,7 +101,7 @@ namespace Tarefas.UI.MVC.Controllers
             if (tarefa == null)
                 return NotFound();
             
-            return View(tarefa);
+            return PartialView("_Delete", tarefa);
         }
 
         
