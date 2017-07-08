@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Tarefas.Infrastructure.CrossCutting.IoC.Native;
+using AutoMapper;
 
 namespace Tarefas
 {
@@ -17,8 +19,14 @@ namespace Tarefas
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            if (env.IsDevelopment())
+            {
+                //builder.AddUserSecrets<Startup>();
+            }
+            
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -26,9 +34,13 @@ namespace Tarefas
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            // Add framework services.
+        {                       
+            
             services.AddMvc();
+
+            //Registrando as depedências
+            services.AddAutoMapper();
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +67,11 @@ namespace Tarefas
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            BootStrapper.RegisterServices(services);
         }
     }
 }
