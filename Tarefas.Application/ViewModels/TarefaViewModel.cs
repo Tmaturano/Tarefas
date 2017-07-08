@@ -14,9 +14,8 @@ namespace Tarefas.Application.ViewModels
         [MaxLength(50, ErrorMessage = "O tamanho máximo do Título é {1}")]
         [Display(Name = "Título")]
         public string Titulo { get; set; }
-
-        [Required(ErrorMessage = "O Status é obrigatório")]
-        [Display(Name = "Status da tarefa")]
+                
+        [Display(Name = "Concluída?")]
         public bool Status { get; private set; }
 
         [Required(ErrorMessage = "A Descrição é obrigatória")]

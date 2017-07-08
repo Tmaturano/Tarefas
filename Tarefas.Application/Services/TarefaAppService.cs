@@ -73,6 +73,38 @@ namespace Tarefas.Application.Services
             return tarefasAtivas;
         }
 
+        public async Task<TarefaViewModel> BuscarPorId(Guid id)
+        {
+            TarefaViewModel tarefa = null;
+            
+            try
+            {
+                tarefa = _mapper.Map<TarefaViewModel>(await _tarefaService.BuscarPorId(id));
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log                
+            }
+
+            return tarefa;
+        }
+
+        public async Task<IEnumerable<TarefaViewModel>> BuscarTodos()
+        {
+            var tarefas = new List<TarefaViewModel>();
+
+            try
+            {
+                tarefas = _mapper.Map<List<TarefaViewModel>>(await _tarefaService.BuscarTodos());
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log                
+            }
+
+            return tarefas;
+        }
+
         public void Dispose()
         {
             _tarefaService.Dispose();

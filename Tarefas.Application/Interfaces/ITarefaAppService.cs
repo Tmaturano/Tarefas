@@ -11,5 +11,7 @@ namespace Tarefas.Application.Interfaces
         void Remover(TarefaViewModel tarefa);
         void Atualizar(TarefaViewModel tarefa);
         Task<IEnumerable<TarefaViewModel>> BuscarTarefasAtivas();
+        Task<TarefaViewModel> BuscarPorId(Guid id);
+        Task<IEnumerable<TarefaViewModel>> BuscarTodos();
     }
 }
