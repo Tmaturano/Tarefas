@@ -26,6 +26,7 @@ namespace Tarefas.Application.Services
             try
             {
                 _tarefaService.Adicionar(_mapper.Map<Tarefa>(tarefa));
+                Commit();
             }
             catch (Exception ex)
             {
@@ -38,6 +39,7 @@ namespace Tarefas.Application.Services
             try
             {
                 _tarefaService.Atualizar(_mapper.Map<Tarefa>(tarefa));
+                Commit();
             }
             catch (Exception ex)
             {
@@ -50,6 +52,7 @@ namespace Tarefas.Application.Services
             try
             {
                 _tarefaService.Remover(_mapper.Map<Tarefa>(tarefa));
+                Commit();
             }
             catch (Exception ex)
             {

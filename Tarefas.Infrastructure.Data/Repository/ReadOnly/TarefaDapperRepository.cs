@@ -35,7 +35,7 @@ namespace Tarefas.Infrastructure.Data.Repository.ReadOnly
         {
             using (IDbConnection conexao = dapperContext.DapperConnection)
             {
-                string sql = " SELECT * FROM Tarefas WHERE Status = 1";
+                string sql = " SELECT * FROM Tarefas WHERE Status = 0";
 
                 var tarefas = await conexao.QueryAsync<Tarefa>(sql);
 

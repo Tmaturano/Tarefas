@@ -7,7 +7,7 @@ namespace Tarefas.Application.ViewModels
     public class TarefaViewModel
     {
         [Key]
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O Título é obrigatório")]
         [MinLength(2, ErrorMessage = "O tamanho mínimo do Título é {1}")]
@@ -16,17 +16,17 @@ namespace Tarefas.Application.ViewModels
         public string Titulo { get; set; }
                 
         [Display(Name = "Concluída?")]
-        public bool Status { get; private set; }
+        public bool Status { get;  set; }
 
         [Required(ErrorMessage = "A Descrição é obrigatória")]
         [MinLength(2, ErrorMessage = "O tamanho mínimo da Descrição é {1}")]
         [MaxLength(150, ErrorMessage = "O tamanho máximo da Descrição é {1}")]
         [Display(Name = "Descrição")]
-        public string Descricao { get; private set; }        
+        public string Descricao { get; set; }        
 
         public TarefaViewModel()
         {
-            Id = Guid.NewGuid();
+            //Id = Guid.NewGuid();
         }
     }
 }
